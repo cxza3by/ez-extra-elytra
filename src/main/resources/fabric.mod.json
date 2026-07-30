@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "ezextrelytr",
+  "version": "${version}",
+  "name": "EZ ExtraElytra",
+  "description": "Just Extra Elytra ported from Wurst Client.",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/ezextrelytr/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "from.caxapoza.ezextrelytr.client.EzextrelytrClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
