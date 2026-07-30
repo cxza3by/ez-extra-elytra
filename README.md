@@ -1,18 +1,38 @@
 # EZ Extra Elytra
-Надоело постоянно использовать и таскать с собой фейерверки? **Не сегодня**, ведь с этим модом ты можешь разгоняться и (в будущем) замедлятся абсолютно бесплатно!
 
-Вдохновился я этой функцией у [Wurst Client](https://wurstclient.net/)
+![Minecraft Version|148](https://shields.io)
+![Mod Loader|107](https://shields.io)
 
----
-Как работает этот мод:
-- Простая подмена пакета - при зажатии R и (в будущем) W и S твой клиент отправляет сигнал серверу о том что твой персонаж разогнался благодаря чему-либо и требует разгона, а сервер в свою очередь обязан подтвердить этот разгон из-за чего ты разгоняешься с базовой скорости ходьбы (0.1 скорости) до бешеных 0.8.
+Tired of constantly crafting and carrying fireworks? **Not anymore!** With this mod, you can accelerate and (in the future) decelerate absolutely for free.
 
----
-> [!NOTE]
-> Предупреждение: Из-за активной отправки подменённых пакетов сервер может заподозрить что-то неладное и, в лучшем случае, кикнуть с сервера, а в худшем вы можете получить бан.
+*Inspired by a similar feature in the [Wurst Client](https://wurstclient.net).*
 
 ---
-Как мне пришла эта идея? Всё очень просто. Я заметил что нормальных аналогов этой фичи нету и поэтому я решил что будет хорошей идеей сделать чистый мод для ускорения без громоздких функций - простое ускорение и замедление.
+
+## ⚙️ How it Works
+The mod utilizes simple **packet spoofing**. When you hold `R` (and `W`/`S` in future updates), your client sends a specific movement packet to the server. The server registers this as a legitimate physics-based acceleration and processes it. As a result, your speed boosts from the base walking speed (0.1) up to a whopping 0.8!
 
 ---
-В будущем я портирую этот мод и на другие версии выше 1.20.1, добавлю возможность замедления, а также добавлю перехват кнопок ходьбы вперёд/назад чтоб при нестандартном управлении вам не пришлось тянутся за W и S чтоб управлять разгоном.
+
+> [!WARNING]
+> **Use at your own risk:** Due to the aggressive transmission of modified packets, anti-cheat systems or servers might flag this behavior. In the best-case scenario, you will be kicked; in the worst-case, you might get banned.
+
+---
+
+## 🚀 Installation
+1. Make sure you have **[Fabric Loader](https://fabricmc.net)** installed for Minecraft 1.20.1.
+2. Download the mod `.jar` file.
+3. Drop the file into your Minecraft `mods` folder.
+4. Launch the game and enjoy!
+
+---
+
+## 💡 The Backstory
+The idea is simple. I noticed there were no lightweight standalone alternatives to this specific feature. I didn't want to install huge, bloated cheat clients just for one function, so I decided to make a clean, lightweight mod focused entirely on simple acceleration and deceleration.
+
+---
+
+## 🗺️ Roadmap / Future Plans
+- [ ] Port the mod to Minecraft versions above 1.20.1.
+- [ ] Implement the deceleration mechanic.
+- [ ] Intercept default movement keybinds (forward/backward) so the acceleration automatically adapts to your custom controls.
