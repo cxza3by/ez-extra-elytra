@@ -1,7 +1,7 @@
 # EZ Extra Elytra
 
-![Minecraft Version|148](https://shields.io)
-![Mod Loader|107](https://shields.io)
+![Minecraft Version|1.20.1](https://img.shields.io/badge/minecraft_version-1.20.1-green?style=for-the-badge)
+![Mod Loader|107](https://img.shields.io/badge/fabric_loader-1.19.3-blue?style=for-the-badge)
 
 Tired of constantly crafting and carrying fireworks? **Not anymore!** With this mod, you can accelerate and (in the future) decelerate absolutely for free.
 
