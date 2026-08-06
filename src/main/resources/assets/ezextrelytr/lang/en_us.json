@@ -11,5 +11,16 @@
   "tooltip.ezextrelytr.particle_amount": "Sets maximum number of particles per tick. Set to 0 to disable.",
   "option.ezextrelytr.particles.disabled": "0 (Off)",
   "option.ezextrelytr.sound_volume": "Sound Volume",
-  "tooltip.ezextrelytr.sound_volume": "Volume level for boost and brake audio effects."
+  "tooltip.ezextrelytr.sound_volume": "Volume level for boost and brake audio effects.",
+  "option.ezextrelytr.particle_style": "Particle Style",
+  "tooltip.ezextrelytr.particle_style": "Select the visual style of your elytra engine trail.",
+  "enum.ezextrelytr.style.flame": "Flame (Default)",
+  "enum.ezextrelytr.style.end_rod": "End Rod / Electric",
+  "enum.ezextrelytr.style.dragon_breath": "Dragon Breath",
+  "enum.ezextrelytr.style.portal": "Nether Portal",
+  "enum.ezextrelytr.style.firework": "Sparkles",
+  "option.ezextrelytr.particle_mode": "Particle Trail Mode",
+  "tooltip.ezextrelytr.particle_mode": "Interpolated = Smooth continuous line. Legacy = Clustered tick points.",
+  "enum.ezextrelytr.mode.interpolated": "Interpolated (Smooth)",
+  "enum.ezextrelytr.mode.legacy": "Legacy (Clusters)"
 }

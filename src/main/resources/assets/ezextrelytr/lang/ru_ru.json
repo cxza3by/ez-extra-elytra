@@ -11,5 +11,16 @@
   "tooltip.ezextrelytr.particle_amount": "Количество спавнящихся частиц в тик. 0 полностью отключает визуал.",
   "option.ezextrelytr.particles.disabled": "0 (Off)",
   "option.ezextrelytr.sound_volume": "Громкость звуков",
-  "tooltip.ezextrelytr.sound_volume": "Регулирует громкость звуковых эффектов форсажа и торможения."
+  "tooltip.ezextrelytr.sound_volume": "Регулирует громкость звуковых эффектов форсажа и торможения.",
+  "option.ezextrelytr.particle_style": "Стиль частиц",
+  "tooltip.ezextrelytr.particle_style": "Выберите визуальный стиль эффекта работы двигателей.",
+  "enum.ezextrelytr.style.flame": "Огонь (Стандарт)",
+  "enum.ezextrelytr.style.end_rod": "Эндер-стержень",
+  "enum.ezextrelytr.style.dragon_breath": "Дыхание дракона",
+  "enum.ezextrelytr.style.portal": "Портал Края",
+  "enum.ezextrelytr.style.firework": "Салют / Искры",
+  "option.ezextrelytr.particle_mode": "Режим шлейфа частиц",
+  "tooltip.ezextrelytr.particle_mode": "Interpolated = Сплошная линия. Legacy = Сгустки по тикам.",
+  "enum.ezextrelytr.mode.interpolated": "Сглаженный (Interpolated)",
+  "enum.ezextrelytr.mode.legacy": "Классический (Legacy)"
 }

@@ -101,41 +101,90 @@ public class EzextrelytrClient implements ClientModInitializer {
         }
     }
 
-    private void spawnBoostParticles(ClientPlayerEntity player, Vec3d look, boolean isNitro, int particleAmount) {
-        if (particleAmount <= 0) return;
+    private void spawnBoostParticles(ClientPlayerEntity player, Vec3d look, boolean isNitro, ModConfig config) {
+        if (config.particleAmount <= 0) return;
 
-        int count = Math.max(1, particleAmount / 15);
-        if (isNitro) count = (int) (count * 1.5);
+        var particleType = config.particleStyle.getParticle(isNitro);
 
-        for (int i = 0; i < count; i++) {
-            double offsetX = (RANDOM.nextDouble() - 0.5) * 0.4;
-            double offsetY = (RANDOM.nextDouble() - 0.5) * 0.4;
-            double offsetZ = (RANDOM.nextDouble() - 0.5) * 0.4;
+        if (config.particleMode == ParticleMode.INTERPOLATED) {
+            int count = Math.max(1, config.particleAmount / 10);
+            if (isNitro) count = (int) (count * 1.5);
 
-            double px = player.getX() - look.x * 0.6 + offsetX;
-            double py = player.getBodyY(0.5) - look.y * 0.6 + offsetY;
-            double pz = player.getZ() - look.z * 0.6 + offsetZ;
+            double prevX = player.prevX;
+            double prevY = player.prevY + player.getHeight() * 0.5;
+            double prevZ = player.prevZ;
 
-            double vx = -look.x * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
-            double vy = -look.y * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
-            double vz = -look.z * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
+            double currX = player.getX();
+            double currY = player.getBodyY(0.5);
+            double currZ = player.getZ();
 
-            player.getWorld().addParticle(
-                    isNitro ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME,
-                    px, py, pz,
-                    vx, vy, vz
-            );
+            for (int i = 0; i < count; i++) {
+                double t = (double) i / count;
+
+                double interpX = prevX + (currX - prevX) * t;
+                double interpY = prevY + (currY - prevY) * t;
+                double interpZ = prevZ + (currZ - prevZ) * t;
+
+                double offsetX = (RANDOM.nextDouble() - 0.5) * 0.2;
+                double offsetY = (RANDOM.nextDouble() - 0.5) * 0.2;
+                double offsetZ = (RANDOM.nextDouble() - 0.5) * 0.2;
+
+                double px = interpX - look.x * 0.5 + offsetX;
+                double py = interpY - look.y * 0.5 + offsetY;
+                double pz = interpZ - look.z * 0.5 + offsetZ;
+
+                double vx = -look.x * 0.1 + (RANDOM.nextDouble() - 0.5) * 0.02;
+                double vy = -look.y * 0.1 + (RANDOM.nextDouble() - 0.5) * 0.02;
+                double vz = -look.z * 0.1 + (RANDOM.nextDouble() - 0.5) * 0.02;
+
+                player.getWorld().addParticle(particleType, px, py, pz, vx, vy, vz);
+            }
+        } else {
+            // Режим LEGACY (Спавн сгустками в текущей позиции игрока)
+            int count = Math.max(1, config.particleAmount / 15);
+            if (isNitro) count *= 2;
+
+            for (int i = 0; i < count; i++) {
+                double offsetX = (RANDOM.nextDouble() - 0.5) * 0.4;
+                double offsetY = (RANDOM.nextDouble() - 0.5) * 0.4;
+                double offsetZ = (RANDOM.nextDouble() - 0.5) * 0.4;
+
+                double px = player.getX() - look.x * 0.6 + offsetX;
+                double py = player.getBodyY(0.5) - look.y * 0.6 + offsetY;
+                double pz = player.getZ() - look.z * 0.6 + offsetZ;
+
+                double vx = -look.x * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
+                double vy = -look.y * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
+                double vz = -look.z * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
+
+                player.getWorld().addParticle(particleType, px, py, pz, vx, vy, vz);
+            }
         }
     }
 
     private void spawnBrakeParticles(ClientPlayerEntity player, int particleAmount) {
         if (particleAmount <= 0) return;
 
-        int count = Math.max(1, particleAmount / 20);
+        int count = Math.max(1, particleAmount / 15);
+
+        double prevX = player.prevX;
+        double prevY = player.prevY + player.getHeight() * 0.5;
+        double prevZ = player.prevZ;
+
+        double currX = player.getX();
+        double currY = player.getBodyY(0.5);
+        double currZ = player.getZ();
+
         for (int i = 0; i < count; i++) {
-            double px = player.getX() + (RANDOM.nextDouble() - 0.5) * 0.8;
-            double py = player.getBodyY(0.5) + (RANDOM.nextDouble() - 0.5) * 0.8;
-            double pz = player.getZ() + (RANDOM.nextDouble() - 0.5) * 0.8;
+            double t = (double) i / count;
+
+            double interpX = prevX + (currX - prevX) * t;
+            double interpY = prevY + (currY - prevY) * t;
+            double interpZ = prevZ + (currZ - prevZ) * t;
+
+            double px = interpX + (RANDOM.nextDouble() - 0.5) * 0.6;
+            double py = interpY + (RANDOM.nextDouble() - 0.5) * 0.6;
+            double pz = interpZ + (RANDOM.nextDouble() - 0.5) * 0.6;
 
             player.getWorld().addParticle(
                     ParticleTypes.CLOUD,

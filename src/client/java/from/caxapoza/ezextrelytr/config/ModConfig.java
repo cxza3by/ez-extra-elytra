@@ -17,9 +17,12 @@ public class ModConfig {
 
     public float forwardBoost = 0.10f;
     public float nitroMultiplier = 1.8f;
-    public float brakeForce = 0.15f; // 15% гашения скорости в тик (0.85 остатка)
+    public float brakeForce = 0.15f;
     public int particleAmount = 50;
     public int soundVolume = 80;
+
+    public ParticleMode particleMode = ParticleMode.INTERPOLATED;
+    public ParticleStyle particleStyle = ParticleStyle.FLAME;
 
     public static ModConfig get() {
         if (INSTANCE == null) {
