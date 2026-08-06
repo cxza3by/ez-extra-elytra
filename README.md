@@ -1,7 +1,7 @@
 # EZ Extra Elytra
 
-![Minecraft Version|148](https://shields.io)
-![Mod Loader|107](https://shields.io)
+![Minecraft Version|1.20.1](https://img.shields.io/badge/minecraft_version-1.20.1-green?style=for-the-badge)
+![Mod Loader|0.19.3](https://img.shields.io/badge/fabric_loader-0.19.3-blue?style=for-the-badge)
 
 Tired of constantly crafting and carrying fireworks? **Not anymore!** With this mod, you can accelerate and (in the future) decelerate absolutely for free.
 
@@ -10,7 +10,10 @@ Tired of constantly crafting and carrying fireworks? **Not anymore!** With this 
 ---
 
 ## ⚙️ How it Works
-The mod utilizes simple **packet spoofing**. When you hold `R` (and `W`/`S` in future updates), your client sends a specific movement packet to the server. The server registers this as a legitimate physics-based acceleration and processes it. As a result, your speed boosts from the base walking speed (0.1) up to a whopping 0.8!
+
+The mod utilizes smooth **client-side vector acceleration**. When you activate the boost, the mod directly modifies your player's movement velocity vector (`addVelocity`).
+
+Your Minecraft client then natively calculates the updated trajectory and syncs it with the server using standard movement packets. Because it works seamlessly with the game's built-in physics engine rather than hard-overriding your position, it retains full compatibility with motion and camera mods like *Do A Barrel Roll* and *FlightAssistant*!
 
 ---
 
