@@ -38,5 +38,5 @@ The idea is simple. I noticed there were no lightweight standalone alternatives 
 
 ## 🗺️ Roadmap / Future Plans
 - [ ] Port the mod to Minecraft versions above 1.20.1.
-- [ ] Implement the deceleration mechanic.
-- [ ] Intercept default movement keybinds (forward/backward) so the acceleration automatically adapts to your custom controls.
+- [x] Implement the deceleration mechanic.
+- [x] Intercept default movement keybinds (forward/backward) so the acceleration automatically adapts to your custom controls.
