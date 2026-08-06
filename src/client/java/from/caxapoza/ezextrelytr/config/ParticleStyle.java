@@ -6,8 +6,6 @@ import net.minecraft.particle.ParticleTypes;
 public enum ParticleStyle {
     FLAME(ParticleTypes.FLAME, ParticleTypes.SOUL_FIRE_FLAME),
     END_ROD(ParticleTypes.END_ROD, ParticleTypes.END_ROD),
-    DRAGON_BREATH(ParticleTypes.DRAGON_BREATH, ParticleTypes.DRAGON_BREATH),
-    PORTAL(ParticleTypes.PORTAL, ParticleTypes.REVERSE_PORTAL),
     FIREWORK(ParticleTypes.FIREWORK, ParticleTypes.FIREWORK);
 
     private final DefaultParticleType normalParticle;

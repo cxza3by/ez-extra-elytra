@@ -16,8 +16,6 @@
   "tooltip.ezextrelytr.particle_style": "Select the visual style of your elytra engine trail.",
   "enum.ezextrelytr.style.flame": "Flame (Default)",
   "enum.ezextrelytr.style.end_rod": "End Rod / Electric",
-  "enum.ezextrelytr.style.dragon_breath": "Dragon Breath",
-  "enum.ezextrelytr.style.portal": "Nether Portal",
   "enum.ezextrelytr.style.firework": "Sparkles",
   "option.ezextrelytr.particle_mode": "Particle Trail Mode",
   "tooltip.ezextrelytr.particle_mode": "Interpolated = Smooth continuous line. Legacy = Clustered tick points.",

@@ -16,8 +16,6 @@
   "tooltip.ezextrelytr.particle_style": "Выберите визуальный стиль эффекта работы двигателей.",
   "enum.ezextrelytr.style.flame": "Огонь (Стандарт)",
   "enum.ezextrelytr.style.end_rod": "Эндер-стержень",
-  "enum.ezextrelytr.style.dragon_breath": "Дыхание дракона",
-  "enum.ezextrelytr.style.portal": "Портал Края",
   "enum.ezextrelytr.style.firework": "Салют / Искры",
   "option.ezextrelytr.particle_mode": "Режим шлейфа частиц",
   "tooltip.ezextrelytr.particle_mode": "Interpolated = Сплошная линия. Legacy = Сгустки по тикам.",

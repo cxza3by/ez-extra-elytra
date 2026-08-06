@@ -1,6 +1,8 @@
 package from.caxapoza.ezextrelytr.client;
 
 import from.caxapoza.ezextrelytr.config.ModConfig;
+import from.caxapoza.ezextrelytr.config.ParticleMode;
+import from.caxapoza.ezextrelytr.config.ParticleStyle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
@@ -50,10 +52,10 @@ public class EzextrelytrClient implements ClientModInitializer {
                     look.z * currentBoost
             );
 
-            spawnBoostParticles(player, look, isNitro, config.particleAmount);
+            // Передаём объект config полностью
+            spawnBoostParticles(player, look, isNitro, config);
 
             if (soundCooldown == 0 && volumeMultiplier > 0.01f) {
-                // Нитро на +1.5 dB (x1.1885) громче основного звука
                 float baseVol = 0.5f * volumeMultiplier;
                 float finalVol = isNitro ? (baseVol * 1.1885f) : baseVol;
 
@@ -140,7 +142,6 @@ public class EzextrelytrClient implements ClientModInitializer {
                 player.getWorld().addParticle(particleType, px, py, pz, vx, vy, vz);
             }
         } else {
-            // Режим LEGACY (Спавн сгустками в текущей позиции игрока)
             int count = Math.max(1, config.particleAmount / 15);
             if (isNitro) count *= 2;
 
