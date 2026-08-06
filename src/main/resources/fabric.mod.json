@@ -10,8 +10,14 @@
   "icon": "assets/ezextrelytr/icon.png",
   "environment": "client",
   "entrypoints": {
+    "main": [
+      "from.caxapoza.ezextrelytr.Ezextrelytr"
+    ],
     "client": [
       "from.caxapoza.ezextrelytr.client.EzextrelytrClient"
+    ],
+    "modmenu": [
+      "from.caxapoza.ezextrelytr.client.ModMenuIntegration"
     ]
   },
   "depends": {

@@ -1,0 +1,15 @@
+{
+  "title.ezextrelytr.config": "EZ Extra Elytra Configuration",
+  "category.ezextrelytr.general": "General Settings",
+  "option.ezextrelytr.forward_boost": "Flight Acceleration Force",
+  "tooltip.ezextrelytr.forward_boost": "Controls base forward velocity boost (0.05 to 3.00).",
+  "option.ezextrelytr.nitro_multiplier": "Nitro Multiplier",
+  "tooltip.ezextrelytr.nitro_multiplier": "Multiplier applied when holding Sprint/Nitro (1.1x to 3.0x).",
+  "option.ezextrelytr.brake_force": "Brake Power",
+  "tooltip.ezextrelytr.brake_force": "Percentage of velocity reduced per tick when braking (5% to 50%).",
+  "option.ezextrelytr.particle_amount": "Particle Trail Density",
+  "tooltip.ezextrelytr.particle_amount": "Sets maximum number of particles per tick. Set to 0 to disable.",
+  "option.ezextrelytr.particles.disabled": "0 (Off)",
+  "option.ezextrelytr.sound_volume": "Sound Volume",
+  "tooltip.ezextrelytr.sound_volume": "Volume level for boost and brake audio effects."
+}

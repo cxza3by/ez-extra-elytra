@@ -1,0 +1,15 @@
+{
+  "title.ezextrelytr.config": "Настройки EZ Extra Elytra",
+  "category.ezextrelytr.general": "Основные настройки",
+  "option.ezextrelytr.forward_boost": "Сила ускорения полёта",
+  "tooltip.ezextrelytr.forward_boost": "Управляет базовой мощностью форсажа (от 0.05 до 3.00).",
+  "option.ezextrelytr.nitro_multiplier": "Множитель форсажа (Нитро)",
+  "tooltip.ezextrelytr.nitro_multiplier": "Множитель скорости при зажатом Спринте (от 1.1x до 3.0x).",
+  "option.ezextrelytr.brake_force": "Сила торможения",
+  "tooltip.ezextrelytr.brake_force": "Процент гашения скорости в тик при торможении (от 5% до 50%).",
+  "option.ezextrelytr.particle_amount": "Плотность шлейфа частиц",
+  "tooltip.ezextrelytr.particle_amount": "Количество спавнящихся частиц в тик. 0 полностью отключает визуал.",
+  "option.ezextrelytr.particles.disabled": "0 (Off)",
+  "option.ezextrelytr.sound_volume": "Громкость звуков",
+  "tooltip.ezextrelytr.sound_volume": "Регулирует громкость звуковых эффектов форсажа и торможения."
+}
