@@ -13,31 +13,40 @@ public class ModConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("ezextrelytr.json").toFile();
 
-    public float forwardBoost = 0.10f; // Сила ускорения (W)
-    public int particleAmount = 50;     // Количество частиц (0 - 200)
-    public int soundVolume = 80;        // Громкость звука (0% - 100%)
+    private static ModConfig INSTANCE;
+
+    public float forwardBoost = 0.10f;
+    public float nitroMultiplier = 1.8f;
+    public float brakeForce = 0.15f; // 15% гашения скорости в тик (0.85 остатка)
+    public int particleAmount = 50;
+    public int soundVolume = 80;
+
+    public static ModConfig get() {
+        if (INSTANCE == null) {
+            INSTANCE = load();
+        }
+        return INSTANCE;
+    }
 
     public static ModConfig load() {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
-                ModConfig config = GSON.fromJson(reader, ModConfig.class);
-                if (config != null) {
-                    return config;
-                }
+                INSTANCE = GSON.fromJson(reader, ModConfig.class);
+                if (INSTANCE != null) return INSTANCE;
             } catch (IOException e) {
-                System.err.println("[EZ Extra Elytra] Failed to load config, using defaults.");
+                e.printStackTrace();
             }
         }
-        ModConfig defaultConfig = new ModConfig();
-        defaultConfig.save();
-        return defaultConfig;
+        INSTANCE = new ModConfig();
+        INSTANCE.save();
+        return INSTANCE;
     }
 
     public void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
             GSON.toJson(this, writer);
         } catch (IOException e) {
-            System.err.println("[EZ Extra Elytra] Failed to save config!");
+            e.printStackTrace();
         }
     }
 }

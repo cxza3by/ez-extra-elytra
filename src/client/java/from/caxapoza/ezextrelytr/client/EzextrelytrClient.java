@@ -14,13 +14,12 @@ import java.util.Random;
 
 public class EzextrelytrClient implements ClientModInitializer {
 
-    private static ModConfig config;
     private static final Random RANDOM = new Random();
     private int soundCooldown = 0;
 
     @Override
     public void onInitializeClient() {
-        config = ModConfig.load();
+        ModConfig.get();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ClientPlayerEntity player = client.player;
@@ -31,19 +30,18 @@ public class EzextrelytrClient implements ClientModInitializer {
         });
     }
 
-    public static ModConfig getConfig() {
-        return config;
-    }
-
     private void handleElytraFlight(ClientPlayerEntity player, MinecraftClient client) {
+        ModConfig config = ModConfig.get();
+
         if (soundCooldown > 0) {
             soundCooldown--;
         }
 
         boolean isNitro = client.options.sprintKey.isPressed();
-        float currentBoost = config.forwardBoost * (isNitro ? 1.8f : 1.0f);
+        float currentBoost = config.forwardBoost * (isNitro ? config.nitroMultiplier : 1.0f);
         float volumeMultiplier = config.soundVolume / 100.0f;
 
+        // 1. Ускорение (W)
         if (client.options.forwardKey.isPressed()) {
             Vec3d look = player.getRotationVector();
             player.addVelocity(
@@ -52,26 +50,32 @@ public class EzextrelytrClient implements ClientModInitializer {
                     look.z * currentBoost
             );
 
-            spawnBoostParticles(player, look, isNitro);
+            spawnBoostParticles(player, look, isNitro, config.particleAmount);
 
             if (soundCooldown == 0 && volumeMultiplier > 0.01f) {
+                // Нитро на +1.5 dB (x1.1885) громче основного звука
+                float baseVol = 0.5f * volumeMultiplier;
+                float finalVol = isNitro ? (baseVol * 1.1885f) : baseVol;
+
                 player.getWorld().playSound(
                         player,
                         player.getBlockPos(),
                         isNitro ? SoundEvents.ENTITY_FIREWORK_ROCKET_BLAST : SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH,
                         SoundCategory.PLAYERS,
-                        0.6f * volumeMultiplier,
-                        isNitro ? 1.5f : 1.0f
+                        finalVol,
+                        isNitro ? 1.4f : 1.0f
                 );
                 soundCooldown = isNitro ? 6 : 10;
             }
         }
 
+        // 2. Торможение (S)
         if (client.options.backKey.isPressed()) {
             Vec3d vel = player.getVelocity();
-            player.setVelocity(vel.x * 0.85, vel.y * 0.85, vel.z * 0.85);
+            double retention = Math.max(0.0, 1.0 - config.brakeForce);
+            player.setVelocity(vel.x * retention, vel.y * retention, vel.z * retention);
 
-            spawnBrakeParticles(player);
+            spawnBrakeParticles(player, config.particleAmount);
 
             if (soundCooldown == 0 && volumeMultiplier > 0.01f) {
                 player.getWorld().playSound(
@@ -86,32 +90,32 @@ public class EzextrelytrClient implements ClientModInitializer {
             }
         }
 
+        // 3. Подъём (Space)
         if (client.options.jumpKey.isPressed()) {
-            player.addVelocity(0, 0.04 * (isNitro ? 1.5 : 1.0), 0);
+            player.addVelocity(0, 0.04 * (isNitro ? config.nitroMultiplier * 0.7 : 1.0), 0);
         }
 
+        // 4. Спуск (Shift)
         if (client.options.sneakKey.isPressed()) {
-            player.addVelocity(0, -0.04 * (isNitro ? 1.5 : 1.0), 0);
+            player.addVelocity(0, -0.04 * (isNitro ? config.nitroMultiplier * 0.7 : 1.0), 0);
         }
     }
 
-    private void spawnBoostParticles(ClientPlayerEntity player, Vec3d look, boolean isNitro) {
-        if (config.particleAmount <= 0) return;
+    private void spawnBoostParticles(ClientPlayerEntity player, Vec3d look, boolean isNitro, int particleAmount) {
+        if (particleAmount <= 0) return;
 
-        int count = Math.max(1, config.particleAmount / 15);
-        if (isNitro) count *= 2;
+        int count = Math.max(1, particleAmount / 15);
+        if (isNitro) count = (int) (count * 1.5);
 
         for (int i = 0; i < count; i++) {
             double offsetX = (RANDOM.nextDouble() - 0.5) * 0.4;
             double offsetY = (RANDOM.nextDouble() - 0.5) * 0.4;
             double offsetZ = (RANDOM.nextDouble() - 0.5) * 0.4;
 
-            // Точка вылета за спиной персонажа
             double px = player.getX() - look.x * 0.6 + offsetX;
             double py = player.getBodyY(0.5) - look.y * 0.6 + offsetY;
             double pz = player.getZ() - look.z * 0.6 + offsetZ;
 
-            // Направление полета частицы назад
             double vx = -look.x * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
             double vy = -look.y * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
             double vz = -look.z * 0.2 + (RANDOM.nextDouble() - 0.5) * 0.05;
@@ -124,10 +128,10 @@ public class EzextrelytrClient implements ClientModInitializer {
         }
     }
 
-    private void spawnBrakeParticles(ClientPlayerEntity player) {
-        if (config.particleAmount <= 0) return;
+    private void spawnBrakeParticles(ClientPlayerEntity player, int particleAmount) {
+        if (particleAmount <= 0) return;
 
-        int count = Math.max(1, config.particleAmount / 20);
+        int count = Math.max(1, particleAmount / 20);
         for (int i = 0; i < count; i++) {
             double px = player.getX() + (RANDOM.nextDouble() - 0.5) * 0.8;
             double py = player.getBodyY(0.5) + (RANDOM.nextDouble() - 0.5) * 0.8;

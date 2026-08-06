@@ -13,7 +13,7 @@ public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> {
-            ModConfig config = ModConfig.load();
+            ModConfig config = ModConfig.get();
 
             ConfigBuilder builder = ConfigBuilder.create()
                     .setParentScreen(parent)
@@ -22,7 +22,7 @@ public class ModMenuIntegration implements ModMenuApi {
             ConfigCategory category = builder.getOrCreateCategory(Text.translatable("category.ezextrelytr.general"));
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-            // 1. Слайдер скорости (0.05 - 3.00)
+            // 1. Базовое ускорение (0.05 - 3.00)
             category.addEntry(entryBuilder.startIntSlider(
                             Text.translatable("option.ezextrelytr.forward_boost"),
                             Math.round(config.forwardBoost * 100.0f),
@@ -35,7 +35,33 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.forwardBoost = newValue / 100.0f)
                     .build());
 
-            // 2. Слайдер частиц (0 - 200)
+            // 2. Множитель Нитро / Форсажа (1.1x - 3.0x)
+            category.addEntry(entryBuilder.startIntSlider(
+                            Text.translatable("option.ezextrelytr.nitro_multiplier"),
+                            Math.round(config.nitroMultiplier * 10.0f),
+                            11,
+                            30
+                    )
+                    .setDefaultValue(18)
+                    .setTooltip(Text.translatable("tooltip.ezextrelytr.nitro_multiplier"))
+                    .setTextGetter(value -> Text.literal(String.format("%.1fx", value / 10.0f)))
+                    .setSaveConsumer(newValue -> config.nitroMultiplier = newValue / 10.0f)
+                    .build());
+
+            // 3. Сила торможения (5% - 50% гашения в тик)
+            category.addEntry(entryBuilder.startIntSlider(
+                            Text.translatable("option.ezextrelytr.brake_force"),
+                            Math.round(config.brakeForce * 100.0f),
+                            5,
+                            50
+                    )
+                    .setDefaultValue(15)
+                    .setTooltip(Text.translatable("tooltip.ezextrelytr.brake_force"))
+                    .setTextGetter(value -> Text.literal(value + "%"))
+                    .setSaveConsumer(newValue -> config.brakeForce = newValue / 100.0f)
+                    .build());
+
+            // 4. Частицы (0 - 200)
             category.addEntry(entryBuilder.startIntSlider(
                             Text.translatable("option.ezextrelytr.particle_amount"),
                             config.particleAmount,
@@ -53,7 +79,7 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.particleAmount = newValue)
                     .build());
 
-            // 3. Слайдер громкости (0% - 100%)
+            // 5. Громкость (0% - 100%)
             category.addEntry(entryBuilder.startIntSlider(
                             Text.translatable("option.ezextrelytr.sound_volume"),
                             config.soundVolume,
